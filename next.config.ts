@@ -1,25 +1,23 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV === "development";
+
 const nextConfig: NextConfig = {
-  generateBuildId: async () => {
-    return 'my-build-id';
-  },
   webpack: (config, { dev }) => {
-    config.cache = false;
-    
-    config.watchOptions = {
-      ...config.watchOptions,
-      ignored: [
-        '**/node_modules/**', 
-        '**/.git/**', 
-        '/data/**', 
-        '/data/data/**',
-        '/**/*' // تجاهل أي مسارات جذرية عامة
-      ],
-    };
+    if (dev) {
+      config.cache = false;
+      config.watchOptions = {
+        ...config.watchOptions,
+        ignored: [
+          '**/node_modules/**', 
+          '**/.git/**', 
+          '/data/**', 
+          '/data/data/**',
+        ],
+      };
+    }
     return config;
   },
 };
 
 export default nextConfig;
-
