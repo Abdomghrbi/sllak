@@ -1,9 +1,11 @@
 import type { NextConfig } from "next";
 
-const isDev = process.env.NODE_ENV === "development";
-
 const nextConfig: NextConfig = {
+
+  turbopack: {},
+  
   webpack: (config, { dev }) => {
+    
     if (dev) {
       config.cache = false;
       config.watchOptions = {
