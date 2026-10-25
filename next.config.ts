@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // إخفاء خطأ Turbopack أثناء البناء على Vercel
   turbopack: {},
   
   webpack: (config, { dev }) => {
