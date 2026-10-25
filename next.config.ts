@@ -1,25 +1,25 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  generateBuildId: async () => {
-    return 'my-build-id';
-  },
+  // لإسكات خطأ التوافق في Vercel مع Turbopack
+  turbopack: {},
+  
   webpack: (config, { dev }) => {
-    config.cache = false;
-    
-    config.watchOptions = {
-      ...config.watchOptions,
-      ignored: [
-        '**/node_modules/**', 
-        '**/.git/**', 
-        '/data/**', 
-        '/data/data/**',
-        '/**/*' // تجاهل أي مسارات جذرية عامة
-      ],
-    };
+    // إعدادات خاصة ببيئة التطوير المحلية على Termux فقط
+    if (dev) {
+      config.cache = false;
+      config.watchOptions = {
+        ...config.watchOptions,
+        ignored: [
+          '**/node_modules/**', 
+          '**/.git/**', 
+          '/data/**', 
+          '/data/data/**',
+        ],
+      };
+    }
     return config;
   },
 };
 
 export default nextConfig;
-
