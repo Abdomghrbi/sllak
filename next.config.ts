@@ -1,9 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  experimental: {
-    turbo: {},
-  },
+  // إخفاء خطأ Turbopack أثناء البناء على Vercel
+  turbopack: {},
+  
   webpack: (config, { dev }) => {
     if (dev) {
       config.cache = false;
